@@ -1,0 +1,41 @@
+name: Chrome Extension Github UI Rewrite
+src:
+    base: src
+    assets:
+    pages:
+    scripts:
+      - "scripts/*"
+    concat:
+    styles:
+        - "stylesheets/*"
+
+dist:
+    base: extension/dist
+    clean: true
+
+watch:
+    - "src"
+
+hook:
+    async_after_build: "node ../src/manifest.js"
+    # after_build: "node ../demo-hooks/AFTER_BUILD"
+    # parameters: build_counter:interger
+
+    # async_before_all: "node ../demo-hooks/BEFORE_ALL"
+    # async_after_build: "node ../demo-hooks/AFTER_BUILD"
+
+
+processor:
+    source_map:
+        enable: false
+    sass: true
+    watchify:
+        delay: 100
+        ignoreWatch:
+            - "**/node_modules/**"
+        poll: true
+    babel:
+        enable: true
+        babelrc: .babelrc
+    browser_sync:
+        enable: false

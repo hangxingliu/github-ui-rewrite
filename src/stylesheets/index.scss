@@ -1,0 +1,14 @@
+/*
+	Stylesheets for Github self dashboard
+	https://github.com/
+*/
+.dashboard-sidebar {
+	// make left side repositories panel line heighter
+	li.source, li.fork{
+		line-height: 22px;
+
+		a {
+			margin-top: 8px !important; // fix for organization page
+		}
+	}
+}

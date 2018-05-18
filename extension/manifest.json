@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "GitHub UI Rewrite",
+	"version": "1.0.0",
+	"description": "A Chrome extension for rewrite GitHub UI",
+	"content_scripts": [
+		{
+			"matches": [
+				"*://github.com/",
+				"*://github.com/dashboard/*",
+				"*://github.com/?q=*",
+				"*://github.com/orgs/*"
+			],
+			"run_at": "document_start",
+			"all_frames": false,
+			"js": [
+				"dist/scripts/index.js"
+			],
+			"css": [
+				"dist/stylesheets/index.css"
+			]
+		}
+	],
+	"icons": {
+		"48": "icons/48.png",
+		"128": "icons/128.png"
+	},
+	"permissions": [
+		"*://github.com/*"
+	]
+}

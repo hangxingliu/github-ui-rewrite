@@ -1,5 +1,5 @@
 //@ts-check
-window.addEventListener('load', setupForDashboard);
+document.addEventListener('DOMContentLoaded', setupForDashboard);
 
 let inited = false;
 function setupForDashboard() {
@@ -20,6 +20,8 @@ function setupForDashboard() {
 
 	let lastUpdate = 0;
 	const listener = new MutationObserver(list => {
+		log(`ChildList of sidebar repositories area has changed`);
+
 		const now = Date.now();
 		if (now < lastUpdate + 500) return;
 		lastUpdate = now;

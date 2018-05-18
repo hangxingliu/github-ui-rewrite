@@ -37,7 +37,7 @@ fs.writeFileSync(targetFile, JSON.stringify({
 	permissions: [
 		'*://github.com/*'
 	]
-}, null, '\t'));
+}, null, '\t') + '\n'); // `insert_final_newline = true` in `.editorconfig`
 
 function loadIcons() {
 	const iconExtName = '.png';

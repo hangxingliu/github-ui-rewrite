@@ -1,5 +1,7 @@
 # Github UI Rewrite (Chrome Extension)
 
+[![Build Status](https://travis-ci.org/hangxingliu/github-ui-rewrite.svg?branch=master)](https://travis-ci.org/hangxingliu/github-ui-rewrite)
+
 A Chrome extension for rewrite GitHub UI.
 
 ## Screenshots

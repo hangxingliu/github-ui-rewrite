@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./build/build.js",
+    "test": "node ./build/build.js",
     "build": "node ./build/build.js",
     "dev": "node ./build/build.js -w",
     "watch": "node ./build/build.js -w"

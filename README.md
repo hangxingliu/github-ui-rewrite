@@ -4,7 +4,11 @@ A Chrome extension for rewrite GitHub UI.
 
 ## Screenshots
 
-![screenshot](screenshots/1.png)
+:star: Print Markdown on Github as PDF (导出 Github 上的 Markdown 文档到 PDF):   
+![screenshot](screenshots/2.png)
+
+:star: Better display of repositories panel (更好地显示仓库面板):   
+![screenshot](screenshots/1.png)   
 
 ## Install
 

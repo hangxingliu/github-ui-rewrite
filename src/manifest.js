@@ -24,13 +24,20 @@ fs.writeFileSync(targetFile, JSON.stringify({
 		matches: [
 			'*://github.com/',
 			'*://github.com/dashboard/*',
-			'*://github.com/?q=*', // self dashboard with querystring
+			'*://github.com/?*', // self dashboard with querystring
 			'*://github.com/orgs/*', // organziation dashboard page
 		],
 		run_at: 'document_start',
 		all_frames: false,
 		js: ["dist/scripts/index.js"],
 		css: ['dist/stylesheets/index.css'],
+	}, {
+		matches: [
+			'*://github.com/*',
+		],
+		run_at: 'document_start',
+		all_frames: false,
+		js: ["dist/scripts/print-markdown.js"],
 	}],
 
 	icons: loadIcons(),

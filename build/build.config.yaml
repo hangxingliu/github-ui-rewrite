@@ -29,6 +29,12 @@ processor:
     source_map:
         enable: false
     sass: true
+    browserify:
+      transform:
+        - name: "babelify"
+      options:
+        plugins:
+          - "transform-es2015-modules-commonjs"
     watchify:
         delay: 100
         ignoreWatch:

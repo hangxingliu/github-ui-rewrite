@@ -20,6 +20,10 @@ A Chrome extension for rewrite GitHub UI.
 > It looks like screenshot above. (这个插件的效果如上图)   
 > <https://chrome.google.com/webstore/detail/djkfdjpoelphhdclfjhnffmnlnoknfnd>
 
+:wrench: Settings Panel (设置面板):
+
+![screenshot](screenshots/settings.png)
+
 ## Install
 
 1. `git clone`

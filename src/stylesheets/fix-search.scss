@@ -1,0 +1,15 @@
+body.github-ui-rewrite-fix-search {
+	.jump-to-suggestions.js-jump-to-suggestions-container {
+		display: none !important;
+	}
+
+	.header-search-key-slash {
+		display: none !important;
+	}
+
+	.js-site-search.scoped-search
+	.awesome-autocomplete
+	.twitter-typeahead {
+		width: 100%;
+	}
+}

@@ -37,7 +37,8 @@ fs.writeFileSync(targetFile, JSON.stringify({
 		],
 		run_at: 'document_start',
 		all_frames: false,
-		js: ["dist/scripts/print-markdown.js"],
+		js: ["dist/scripts/print-markdown.js", "dist/scripts/fix-search.js"],
+		css: ["dist/stylesheets/fix-search.css"],
 	}],
 
 	options_ui: {

@@ -1,7 +1,14 @@
 //@ts-check
 import { log, $mustExist, $ } from "./_utils";
+import { loadSettings } from "../settings-page/settings";
 
-document.addEventListener('DOMContentLoaded', steupForPrintMarkdown);
+document.addEventListener('DOMContentLoaded', () => {
+	loadSettings(settings => {
+		if (settings.addPdfPrintButton) {
+			steupForPrintMarkdown();
+		}
+	});
+});
 
 const btnClass = 'btn-from-extension-for-print-pdf';
 
@@ -55,8 +62,6 @@ function steupForPrintMarkdown() {
 			$button.setAttribute('style', 'position:absolute;top:5px;right:10px');
 			$appendBar.appendChild($button);
 		}
-
-
 	}
 
 	/**

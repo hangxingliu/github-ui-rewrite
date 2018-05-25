@@ -1,7 +1,14 @@
 //@ts-check
 import { log, $mustExist, $$ } from "./_utils";
+import { loadSettings } from "../settings-page/settings";
 
-document.addEventListener('DOMContentLoaded', setupForDashboard);
+document.addEventListener('DOMContentLoaded', () => {
+	loadSettings(settings => {
+		if (settings.betterRepositoriesCard) {
+			setupForDashboard();
+		}
+	});
+});
 
 let inited = false;
 function setupForDashboard() {

@@ -9,7 +9,8 @@
     "test": "node ./build/build.js",
     "build": "node ./build/build.js",
     "dev": "node ./build/build.js -w",
-    "watch": "node ./build/build.js -w"
+    "watch": "node ./build/build.js -w",
+    "packup": "zip -r chrome-github-ui-rewrite.zip extension"
   },
   "author": "LiuYue",
   "license": "GPL-3.0",
@@ -21,6 +22,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-env": "^1.7.0",
     "babelify": "^8.0.0",
+    "bootstrap": "^4.1.1",
     "browserify": "^16.2.2",
     "colors": "^1.2.5",
     "commander": "^2.15.1",
@@ -31,11 +33,10 @@
     "js-yaml": "^3.11.0",
     "node-sass": "^4.9.0",
     "postcss": "^6.0.22",
-    "watch": "^1.0.2"
-  },
-  "dependencies": {
+    "watch": "^1.0.2",
     "watchify": "^3.11.0"
   },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hangxingliu/github-ui-rewrite.git"

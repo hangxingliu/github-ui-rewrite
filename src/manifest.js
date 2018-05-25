@@ -40,9 +40,20 @@ fs.writeFileSync(targetFile, JSON.stringify({
 		js: ["dist/scripts/print-markdown.js"],
 	}],
 
+	options_ui: {
+		page: "dist/settings-page/index.html",
+		open_in_tab: false
+	},
+
+	browser_action: {
+		default_popup: "dist/settings-page/index.html",
+		default_icon: loadIcons(),
+	},
+
 	icons: loadIcons(),
 	permissions: [
-		'*://github.com/*'
+		'*://github.com/*',
+		'storage'
 	]
 }, null, '\t') + '\n'); // `insert_final_newline = true` in `.editorconfig`
 

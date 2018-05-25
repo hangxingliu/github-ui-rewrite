@@ -3,11 +3,14 @@ src:
     base: src
     assets:
     pages:
+      - "settings-page/index.html"
     scripts:
+      - "settings-page/index.js"
       - "scripts/*"
     concat:
     styles:
-        - "stylesheets/*"
+      - "settings-page/index.scss"
+      - "stylesheets/*"
 
 dist:
     base: extension/dist

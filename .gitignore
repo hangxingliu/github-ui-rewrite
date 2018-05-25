@@ -1,3 +1,7 @@
+# target crx/zip file
+*.crx
+*.zip
+
 # sourcemaps
 extension/**/*.map
 

@@ -1,5 +1,5 @@
 //@ts-check
-import { log, $mustExist, $$ } from "./_utils";
+import { log, $mustExist, $$, $ } from "./_utils";
 import { loadSettings } from "../settings-page/settings";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +15,8 @@ function setupForDashboard() {
 	if (inited) return;
 	inited = true;
 	log('setupForDashboard');
+
+	$('body').className += ' github-ui-better-repositories-card';
 
 	const $sidebar = $mustExist('.dashboard-sidebar');
 	if (!$sidebar) return;

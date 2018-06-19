@@ -1,6 +1,7 @@
 # target crx/zip file
 *.crx
 *.zip
+node_modules.tar
 
 # sourcemaps
 extension/**/*.map

@@ -1,5 +1,5 @@
 //@ts-check
-import { log, $mustExist, $$, $ } from "./_utils";
+import { log, $mustExist, $$, $, warn } from "./_utils";
 import { loadSettings } from "../settings-page/settings";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,7 +25,7 @@ function setupForDashboard() {
 	if (!$currentUserName) return;
 
 	const $listen = $mustExist('.js-repos-container .Box-body', $sidebar);
-	if (!$listen) log(`.js-repos-container .Box-body is missing!`);
+	if (!$listen) warn(`.js-repos-container .Box-body is missing!`);
 
 	makeRepoNameShorter();
 
@@ -44,18 +44,36 @@ function setupForDashboard() {
 
 	function makeRepoNameShorter() {
 		const userName = $currentUserName.innerText;
-		const startsWith = `${userName}/`;
+		// const startsWith = `${userName}/`;
 
-		/** @type {{e: HTMLElement, text: string}[]} */
+		/** @type {{ $parent: HTMLElement; $1: HTMLElement; $2: Node; $3: HTMLElement; }[]} */
 		const update = [];
-		const $repos = $$('li.source .text-bold, li.fork .text-bold', $sidebar);
+		const selectors = [
+			// elements under: <a class="d-flex flex-items-baseline ...
+			//      div span "/" span
+			'li.source .text-bold a span:nth-child(2)',
+			'li.fork   .text-bold a span:nth-child(2)',
+		].join(', ');
+		const $repos = $$(selectors, $sidebar);
 		for (const $repo of $repos) {
-			const text = $repo.innerText;
-			if (text.startsWith(startsWith))
-				update.push({ e: $repo, text: text.replace(startsWith, '') });
+			const text = $repo.innerText.trim();
+			if (text === userName) {
+				const $sibling = $repo.nextSibling;
+				//@ts-ignore
+				update.push({
+					$1: $repo,
+					$2: $sibling,
+					$3: $sibling.nextSibling,
+					$parent: $repo.parentElement
+				});
+			}
 		}
 
-		for (const { e, text } of update)
-			e.innerText = text;
+		for (const { $1, $2, $3, $parent } of update) {
+			$3.style.maxWidth = 'none';
+			$parent.removeChild($2);
+			$parent.removeChild($1);
+		}
+
 	}
 }

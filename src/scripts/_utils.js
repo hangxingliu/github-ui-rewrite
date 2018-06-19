@@ -6,6 +6,8 @@
 // | | | | | |  __/ |_| | | | (_) | (_| \__ \
 // |_| |_| |_|\___|\__|_| |_|\___/ \__,_|___/
 
+export const LOG_PREFIX = 'Github UI Rewrite:';
+
 /**
  * @param {string} selector
  * @param {any} parent
@@ -14,7 +16,7 @@
 export function $mustExist(selector, parent = document) {
 	const $dom = $(selector, parent);
 	if (!$dom)
-		log(`${selector} is missing!`);
+		warn(`${selector} is missing!`);
 	return $dom;
 }
 
@@ -38,5 +40,9 @@ export function $$(selector, parent = document) {
 }
 
 export function log(ctx) {
-	console.log(`Github UI Rewrite: ${ctx}`);
+	console.log(`${LOG_PREFIX} ${ctx}`);
+}
+
+export function warn(ctx) {
+	console.warn(`${LOG_PREFIX} ${ctx}`);
 }

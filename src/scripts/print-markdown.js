@@ -49,17 +49,18 @@ function steupForPrintMarkdown() {
 
 		const $bar = $('.file-actions');
 		if ($bar) {
-			const $before = $('a.btn-octicon', $bar);
+			const $before = $('a.btn-octicon, button.btn-octicon', $bar);
 			if (!$before) return;
 
 			const $button = createButton(onClick.bind(this, {}));
-			$bar.insertBefore($button, $before);
+			$before.parentNode.insertBefore($button, $before);
 		} else {
 			const $appendBar = $mustExist('h3', $readme);
 			if (!$appendBar) return;
 
 			const $button = createButton(onClick.bind(this, { repoReademe: true }));
-			$button.setAttribute('style', 'position:absolute;top:5px;right:10px');
+			$button.setAttribute('style', 'position:absolute;top:-5px;right:5px');
+			$appendBar.style.position = 'relative';
 			$appendBar.appendChild($button);
 		}
 	}

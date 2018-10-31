@@ -10,9 +10,10 @@ body.github-ui-better-repositories-card {
 
 			a {
 				margin-top: 8px !important; // fix for organization page
-				& > span {
-					margin-left: .5em;
-				}
+				// following style will be removed in the future
+				// & > span {
+				// 	 margin-left: .5em;
+				// }
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 //@ts-check
-import { log, $mustExist, $$, $, warn } from "./_utils";
+import { log, $mustExist, $$, $, warn, $atLeastOne } from "./_utils";
 import { loadSettings } from "../settings-page/settings";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,14 +18,22 @@ function setupForDashboard() {
 
 	$('body').className += ' github-ui-better-repositories-card';
 
-	const $sidebar = $mustExist('.dashboard-sidebar');
-	if (!$sidebar) return;
+	const $sidebars = $$('.dashboard-sidebar');
 
-	const $currentUserName = $mustExist('.account-switcher-truncate-override', $sidebar);
+	// resolve normal version and beta version (choose a container has children)
+	const $sidebar = $sidebars.filter(it => it.children.length > 0)[0];
+	if (!$sidebar) return warn("`.dashboard-sidebar` is missing!");
+
+	let $currentUserName = $atLeastOne([
+		'.account-switcher-truncate-override', // normal version
+		'.select-menu-button-gravatar+span', // beta version
+	],$sidebar);
 	if (!$currentUserName) return;
 
-	const $listen = $mustExist('.js-repos-container .Box-body', $sidebar);
-	if (!$listen) warn(`.js-repos-container .Box-body is missing!`);
+	const $listen = $atLeastOne([
+		'.js-repos-container .Box-body', // normal version
+		'.js-repos-container[data-pjax-container]', //beta version
+	], $sidebar);
 
 	makeRepoNameShorter();
 
@@ -39,7 +47,8 @@ function setupForDashboard() {
 
 		makeRepoNameShorter();
 	});
-	listener.observe($listen, { childList: true });
+	if ($listen)
+		listener.observe($listen, { childList: true, subtree: true });
 	// listener.disconnect();
 
 	function makeRepoNameShorter() {
@@ -55,14 +64,15 @@ function setupForDashboard() {
 			'li.fork   .text-bold a span:nth-child(2)',
 		].join(', ');
 		const $repos = $$(selectors, $sidebar);
+		log($repos.length)
 		for (const $repo of $repos) {
 			const text = $repo.innerText.trim();
 			if (text === userName) {
 				const $sibling = $repo.nextSibling;
-				//@ts-ignore
 				update.push({
 					$1: $repo,
 					$2: $sibling,
+					//@ts-ignore
 					$3: $sibling.nextSibling,
 					$parent: $repo.parentElement
 				});

@@ -1,3 +1,4 @@
+//@ts-check
 
 // =================================================
 //                 _   _               _
@@ -16,7 +17,7 @@ export const LOG_PREFIX = 'Github UI Rewrite:';
 export function $mustExist(selector, parent = document) {
 	const $dom = $(selector, parent);
 	if (!$dom)
-		warn(`${selector} is missing!`);
+		warn(`\`${selector}\` is missing!`);
 	return $dom;
 }
 
@@ -28,6 +29,20 @@ export function $mustExist(selector, parent = document) {
  */
 export function $(selector, parent = document) {
 	return parent.querySelector(selector);
+}
+
+/**
+ * @param {string[]} selectors
+ * @param {any} parent
+ * @returns {HTMLElement}
+ */
+export function $atLeastOne(selectors, parent = document) {
+	const $elements = selectors
+		.map(selector => $(selector, parent))
+		.filter(it => it);
+	if ($elements.length === 0)
+		warn(`${selectors.map(it => `\`${it}\``)} are missing!`);
+	return $elements[0];
 }
 
 /**

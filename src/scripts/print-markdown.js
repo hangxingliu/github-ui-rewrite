@@ -1,5 +1,5 @@
 //@ts-check
-import { log, $mustExist, $ } from "./_utils";
+import { log, warn, $mustExist, $ } from "./_utils";
 import { loadSettings } from "../settings-page/settings";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,6 +47,7 @@ function steupForPrintMarkdown() {
 		const $oldButton = $(`.${btnClass}`);
 		if ($oldButton) return;
 
+		// Markdown documents in repository
 		const $bar = $('.file-actions');
 		if ($bar) {
 			const $before = $('a.btn-octicon, button.btn-octicon', $bar);
@@ -55,11 +56,12 @@ function steupForPrintMarkdown() {
 			const $button = createButton(onClick.bind(this, {}));
 			$before.parentNode.insertBefore($button, $before);
 		} else {
+			// README.md at root page of repository
 			const $appendBar = $mustExist('h3', $readme);
 			if (!$appendBar) return;
 
 			const $button = createButton(onClick.bind(this, { repoReademe: true }));
-			$button.setAttribute('style', 'position:absolute;top:-5px;right:5px');
+			$button.setAttribute('style', 'position:absolute;top:-5px;right:25px');
 			$appendBar.style.position = 'relative';
 			$appendBar.appendChild($button);
 		}
@@ -85,18 +87,24 @@ function steupForPrintMarkdown() {
 
 		function prepareForPrint() {
 			log(`prepare for print (title: ${JSON.stringify(printTitle)})`);
+			try {
 
-			document.title = printTitle;
-			const $body = $('body', printDocument);
-			const $printReadme = $('#readme', printDocument);
-			if (options.repoReademe) {
-				const $h3 = $('#readme > h3', printDocument);
-				if ($h3) $printReadme.removeChild($h3);
+				document.title = printTitle;
+				const $body = $('body', printDocument);
+				const $printReadme = $('#readme', printDocument);
+				if (options.repoReademe) {
+					const $header = $('#readme > .Box-header', printDocument);
+					if ($header) $printReadme.removeChild($header);
+				}
+				$body.setAttribute('style', 'min-width: inherit');
+				$printReadme.setAttribute('style', 'background-color:white');
+				$('#readme', printDocument).setAttribute('style', 'border: none');
+				$('#readme > .Box-body > article', printDocument).setAttribute('style', 'border: none');
+				$body.innerHTML = $printReadme.outerHTML;
+
+			} catch (error) {
+				warn(`An error be thrown in prepareForPrint ${String(error.stack || error)}`);
 			}
-			$body.setAttribute('style', 'min-width: inherit');
-			$printReadme.setAttribute('style', 'background-color:white');
-			$('#readme>article', printDocument).setAttribute('style', 'border: none');
-			$body.innerHTML = $printReadme.outerHTML;
 		}
 
 		function ok2print() {
